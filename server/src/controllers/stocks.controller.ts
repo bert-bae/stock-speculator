@@ -2,8 +2,8 @@ import {
   intraday,
   weeklyAdjusted,
   monthlyAdjusted,
-  dailyAdjusted,
 } from "../clients/alphavantage";
+import { getStockOverview } from "../services/stocks.service";
 import {
   GetIntradayStockInput,
   GetStockInputBase,
@@ -12,13 +12,6 @@ import {
 export const getIntraday = async (req, res) => {
   const query = req.query as GetIntradayStockInput;
   const result = await intraday(query);
-
-  res.status(200).json(result);
-};
-
-export const getDailyAdjusted = async (req, res) => {
-  const query = req.query as GetIntradayStockInput;
-  const result = await dailyAdjusted(query);
 
   res.status(200).json(result);
 };
@@ -35,4 +28,11 @@ export const getMonthlyAdjusted = async (req, res) => {
   const result = await monthlyAdjusted(query);
 
   res.status(200).json(result);
+};
+
+export const getOverview = async (req, res) => {
+  const query = req.query as GetStockInputBase;
+  const overview = await getStockOverview(query.symbol);
+
+  res.status(200).json(overview);
 };

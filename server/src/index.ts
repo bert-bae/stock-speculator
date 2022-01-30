@@ -6,10 +6,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/stocks", stocksRouter);
+app.use("/api", stocksRouter);
 
-app.listen(process.env.PORT);
-
-// intraday("IBM");
-
-// weeklyAdjusted("BB.TO");
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on ${process.env.PORT}`);
+});

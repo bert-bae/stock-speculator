@@ -3,7 +3,10 @@ import AlphaVantage, {
   Interval,
   StockTimeSeries,
 } from "alphavantage-wrapper-ts";
-import { GetIntradayStockInput } from "../types/stocks.types";
+import {
+  GetIntradayStockInput,
+  GetStockInputBase,
+} from "../types/stocks.types";
 
 const av = new AlphaVantage({ apikey: process.env.ALPHAVANTAGE_API_KEY });
 
@@ -17,17 +20,8 @@ export const intraday = async (
   return response;
 };
 
-export const dailyAdjusted = async (
-  input: GetIntradayStockInput
-): Promise<StockTimeSeries.WeeklyAdjustedResponse> => {
-  const response = await av.stockTimeSeries.dailyAdjusted({
-    symbol: input.symbol,
-  });
-  return response;
-};
-
 export const weeklyAdjusted = async (
-  input: GetIntradayStockInput
+  input: GetStockInputBase
 ): Promise<StockTimeSeries.WeeklyAdjustedResponse> => {
   const response = await av.stockTimeSeries.weeklyAdjusted({
     symbol: input.symbol,
@@ -36,7 +30,7 @@ export const weeklyAdjusted = async (
 };
 
 export const monthlyAdjusted = async (
-  input: GetIntradayStockInput
+  input: GetStockInputBase
 ): Promise<StockTimeSeries.WeeklyAdjustedResponse> => {
   const response = await av.stockTimeSeries.monthlyAdjusted({
     symbol: input.symbol,
@@ -45,10 +39,16 @@ export const monthlyAdjusted = async (
 };
 
 export const companyOverview = async (
-  input: GetIntradayStockInput
+  input: GetStockInputBase
 ): Promise<FundamentalData.CompanyOverviewResponse> => {
   const response = await av.fundamentalData.companyOverview({
     symbol: input.symbol,
   });
   return response;
 };
+
+// export const companyFinancials = async (
+//   input: GetStockInputBase
+// ): Promise<any> => {
+//   // const response = await
+// };
