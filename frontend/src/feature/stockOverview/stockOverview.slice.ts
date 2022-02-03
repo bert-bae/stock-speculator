@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadOverview } from "./stockOverview.thunks";
 import { attachThunkHandlers } from "../../utils/redux";
+import { StockTimeSeries } from "../../types";
 
 export enum TimeSeriesType {
   "Monthly" = "Monthly",
@@ -9,23 +10,17 @@ export enum TimeSeriesType {
 }
 
 export interface StockOverviewState {
+  loading: boolean;
   overview: Record<string, any>;
-  timeSeries: Array<{
-    open: string;
-    high: string;
-    low: string;
-    close: string;
-    adjustedClose: string;
-    volume: string;
-    dividendAmount: string;
-  }>;
+  timeSeries: StockTimeSeries;
   timeSeriesType: TimeSeriesType;
   symbol: string;
 }
 
 const initialState: StockOverviewState = {
+  loading: false,
   overview: {},
-  timeSeries: [],
+  timeSeries: {},
   timeSeriesType: TimeSeriesType.Weekly,
   symbol: "",
 };
